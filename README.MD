@@ -1,35 +1,35 @@
-一键破解APK签名校验
-=================
+One-click cracking APK signature verification
+ ==================
 
-参考自[fourbrother/kstools](https://github.com/fourbrother/kstools)，在其基础上进行了部分改进，并用纯 Java 实现。
+ Refer to [fourbrother/kstools](https://github.com/fourbrother/kstools), some improvements have been made on its basis, and it is implemented in pure Java.
 
-原理
------
+ principle
+ -----
 
-通过插入代码到 Application 入口，hook 了程序中 PackageManager 的 getPackageInfo 方法，改变了其获取到的签名信息。
+ By inserting code into the Application entry, the getPackageInfo method of PackageManager in the program is hooked, and the signature information obtained by it is changed.
 
-处理步骤
--------
+ Processing steps
+ -------
 
-1. 读取原APK的签名信息。
-2. 替换或添加 AndroidManifest.xml 中 application 的 name 属性。
-3. 读取 PmsHookApplication.smali 并替换签名信息，如果原 APK 自定义了 Application，还需要修改 PmsHookApplication 的父类，最后编译 smali 并添加到 classes.dex 中。
-4. 对输出的APK进行签名。
+ 1. Read the signature information of the original APK.
+ 2. Replace or add the name attribute of application in AndroidManifest.xml.
+ 3. Read PmsHookApplication.smali and replace the signature information. If the original APK has customized Application, you also need to modify the parent class of PmsHookApplication, and finally compile smali and add it to classes.dex.
+ 4. Sign the exported APK.
 
-使用方法
--------
+ Instructions
+ -------
 
-1. 使用本工具需要先安装 Java 环境，nkstool.jar 是已编译好的文件。
-2. 按需修改 config.txt 中的配置信息，把相应apk放到项目根目录。
-3. 运行，三种方式
-    - 用 IDEA 打开项目并运行源码。
-    - Windows 系统可以直接打开 run.bat 执行。
-    - Linux 或 MacOS 系统中，打开终端，cd到项目根目录，输入 java -jar nkstool.jar 并回车。
-4. 测试输出的 apk 文件
+ 1. To use this tool, you need to install the Java environment first, and nkstool.jar is the compiled file.
+ 2. Modify the configuration information in config.txt as needed, and put the corresponding apk in the project root directory.
+ 3. Operation, three ways
+     -Open the project with IDEA and run the source code.
+     -Windows system can directly open run.bat to execute.
+     -In Linux or MacOS system, open the terminal, cd to the project root directory, enter java -jar nkstool.jar and press Enter.
+ 4. Test the output apk file
 
-其它
-----
+ other
+ ----
 
-如果不需要源码，可以只保留nkstool.jar、config.txt、run.bat等文件。
+ If you don't need the source code, you can just keep nkstool.jar, config.txt, run.bat and other files.
 
-本工具只对那些仅通过 PackageManager.getPackageInfo().signatures 来校验签名的应用有效。
+ This tool is only valid for those applications that only use PackageManager.getPackageInfo().signatures to verify signatures.
